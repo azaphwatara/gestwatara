@@ -390,6 +390,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .gradebook-grade-preview { display: inline-flex; width: fit-content; margin-top: 2px; padding: 3px 7px; border-radius: 20px; font-size: 9px; font-weight: 700; }
 .gradebook-grade-preview.success { color: #168653; background: #f2fbf6; }
 .gradebook-grade-preview.warning { color: #986d22; background: #fff6e3; }
+.gradebook-grade-slider { width: 100%; margin-top: 6px; }
 
 .gradebook-result-badge { display: inline-flex; padding: 3px 7px; border-radius: 20px; font-size: 9px; font-weight: 700; }
 .gradebook-result-badge.success { color: #168653; background: #f2fbf6; }
@@ -1766,6 +1767,23 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   background: #dbe7f6;
 }
 
+.gradebook-cancel-button {
+  background: #f1f5f9;
+  border: 1px solid #c9d8e8;
+  color: #475569;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+.gradebook-cancel-button:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
 .gradebook-student-prompt {
   padding: 10px 14px;
   font-size: 14px;
@@ -1810,6 +1828,18 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .gradebook-filters-row select:focus {
   outline: 2px solid #2563eb;
   border-color: #2563eb;
+}
+
+.gradebook-filters-row select.gradebook-blurred {
+  color: #94a3b8;
+}
+
+.gradebook-blurred-option {
+  color: #94a3b8;
+}
+
+.gradebook-filters-row select:focus .gradebook-blurred-option {
+  display: none;
 }
 
 .gradebook-student-picker {

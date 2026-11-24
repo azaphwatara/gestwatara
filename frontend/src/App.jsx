@@ -1466,6 +1466,14 @@ function App() {
     setSelectedGradeSubject("");
   }
 
+  function cancelCreateAssessmentForm() {
+    setGradeAssessmentName("");
+    setGradeAssessmentMax("20");
+    setGradeAssessmentDateParts(["", "", ""]);
+    setSelectedGradeSubject("");
+    setShowCreateAssessmentForm(false);
+  }
+
   function createGradeAssessment(event) {
     event.preventDefault();
     const name = gradeAssessmentName.trim();
@@ -1477,7 +1485,7 @@ function App() {
       dateInput.reportValidity();
       return;
     }
-    if (!name || !gradeSubjectOptions.includes(selectedGradeSubject) || !Number.isFinite(maxScore) || maxScore <= 0) return;
+    if (!name || !Number.isFinite(maxScore) || maxScore <= 0) return;
     const assessment = {
       id: crypto.randomUUID(),
       name,
@@ -1906,7 +1914,7 @@ function App() {
                   <button type="button" className="gradebook-delete-assessment-button" disabled={!selectedGradeAssessment} onClick={deleteSelectedGradeAssessment}>
                     <Trash2 size={14} /> Supprimer
                   </button>
-                  <button type="button" className="gradebook-create-button" onClick={resetCreateAssessmentForm}><Plus size={15} /> Créer une évaluation</button>
+                  {!showCreateAssessmentForm && <button type="button" className="gradebook-create-button" onClick={resetCreateAssessmentForm}><Plus size={15} /> Créer une évaluation</button>}
                 </div>
                 <div className="gradebook-filters-row">
                   <label>Classe
@@ -1921,17 +1929,17 @@ function App() {
                       {schoolClasses.map((className) => <option key={className} value={className}>{className}</option>)}
                     </select>
                   </label>
-                  {selectedGradeClass && <label>Matière
+                  <label>Matière
                     <select value={selectedGradeSubject} onChange={(event) => {
                       setSelectedGradeSubject(event.target.value);
                       setSelectedGradeStudentKey("");
                       setSelectedGradeAssessmentId("");
                     }}>
-                      <option value="">Choisir une matière</option>
+                      <option value="" disabled className="gradebook-blurred-option">Choisir une matière</option>
                       {gradeSubjectClassOptions.map((subject) => <option key={subject} value={subject}>{subject}</option>)}
                     </select>
-                  </label>}
-                  {selectedGradeSubject && <label>Élève
+                  </label>
+<label>Élève
                     <span className="gradebook-student-picker">
                       <input
                         type="text"
@@ -1948,7 +1956,7 @@ function App() {
                         }}
                         onFocus={() => { setGradeStudentSuggestionsOpen(true); setActiveGradeStudentSuggestion(0); }}
                         onBlur={() => setGradeStudentSuggestionsOpen(false)}
-                        placeholder="Saisir le nom de l’élève"
+                        placeholder="Saisir le nom de l'élève"
                         autoComplete="off"
                       />
                       {gradeStudentSuggestionsOpen && gradeStudentQuery.trim() && <div className="gradebook-student-suggestions" role="listbox" aria-label="Élèves correspondants">
@@ -1971,8 +1979,8 @@ function App() {
                         </button>
                       </span>
                     )}
-                  </label>}
-                  {selectedGradeStudentKey && selectedGradeStudentEntry && <label>Note sur {selectedGradeAssessment.maxScore}
+                  </label>
+                  {selectedGradeAssessment && selectedGradeStudentKey && selectedGradeStudentEntry && <label>Note sur {selectedGradeAssessment.maxScore}
                     <input
                       type="number"
                       min="0"
@@ -1986,6 +1994,16 @@ function App() {
                       placeholder="—"
                     />
                     {gradeDraftOver20 !== null && <small className={`gradebook-grade-preview ${gradeDraftOver20 >= 10 ? "success" : "warning"}`}>{gradeDraftOver20.toFixed(2).replace(".", ",")} / 20</small>}
+                    <input
+                      type="range"
+                      min="0"
+                      max={selectedGradeAssessment.maxScore}
+                      step="0.25"
+                      disabled={gradeEntryLocked}
+                      value={gradeDrafts[`${selectedGradeAssessment.id}::${selectedGradeStudentKey}`] ?? (gradeEntryLocked ? selectedGradeAssessment.grades[selectedGradeStudentKey] ?? 0 : 0)}
+                      onChange={(event) => setGradeDrafts((current) => ({ ...current, [`${selectedGradeAssessment.id}::${selectedGradeStudentKey}`]: event.target.value }))}
+                      className="gradebook-grade-slider"
+                    />
                   </label>}
                   {selectedGradeStudentKey && selectedGradeStudentEntry && (
                     <button type="button" className="gradebook-create-button" onClick={() => saveStudentGrade({ preventDefault: () => {} }, selectedGradeStudentEntry)}>
@@ -1996,12 +2014,6 @@ function App() {
                 {showCreateAssessmentForm && <form className="gradebook-create-form" onSubmit={createGradeAssessment}>
                     <label>Nom de l’évaluation
                       <input required maxLength={70} value={gradeAssessmentName} onChange={(event) => setGradeAssessmentName(event.target.value)} placeholder="Ex. Dictée n° 1" />
-                    </label>
-                    <label>Matière
-                      <select required value={selectedGradeSubject} onChange={(event) => setSelectedGradeSubject(event.target.value)}>
-                        <option value="" disabled>Choisir une matière</option>
-                        {gradeSubjectOptions.map((subject) => <option key={subject} value={subject}>{subject}</option>)}
-                      </select>
                     </label>
                     <label>Date
                       <span className="assessment-date-inputs">
@@ -2033,7 +2045,8 @@ function App() {
                     <label>Barème
                       <input required type="number" min="1" max="1000" step="1" value={gradeAssessmentMax} onChange={(event) => setGradeAssessmentMax(event.target.value)} />
                     </label>
-                    <button type="submit" className="gradebook-create-button" disabled={!gradeSubjectOptions.length}><Plus size={15} /> Créer une évaluation</button>
+                    <button type="submit" className="gradebook-create-button" disabled={!selectedGradeSubject}><Plus size={15} /> Créer l’évaluation</button>
+                    <button type="button" className="gradebook-cancel-button" onClick={cancelCreateAssessmentForm}><X size={15} /> Annuler</button>
                   </form>
                 }
               </div>
