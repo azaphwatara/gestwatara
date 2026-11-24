@@ -1738,3 +1738,167 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .fees-config-classes { gap: 12px; }
   .fee-config-class-block { padding: 12px; }
 }
+
+.gradebook-student-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #eef4fb;
+  border: 1px solid #c9d8e8;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1d3557;
+}
+
+.gradebook-change-student {
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.gradebook-change-student:hover {
+  background: #dbe7f6;
+}
+
+.gradebook-student-prompt {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+}
+
+.gradebook-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #f3f7fc;
+  border: 1px solid #e1e8f0;
+  border-radius: 8px;
+}
+
+.gradebook-filters-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2d4562;
+  margin: 0;
+}
+
+.gradebook-filters-row select {
+  min-width: 160px;
+  padding: 8px 10px;
+  border: 1px solid #c9d8e8;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  background: #fff;
+}
+
+.gradebook-filters-row select:focus {
+  outline: 2px solid #2563eb;
+  border-color: #2563eb;
+}
+
+.gradebook-student-picker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+}
+
+.gradebook-student-picker input {
+  padding: 8px 10px;
+  border: 1px solid #c9d8e8;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  background: #fff;
+}
+
+.gradebook-student-picker input:focus {
+  outline: 2px solid #2563eb;
+  border-color: #2563eb;
+}
+
+.gradebook-student-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #c9d8e8;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 4px;
+}
+
+.gradebook-student-suggestions button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #1d3557;
+}
+
+.gradebook-student-suggestions button:hover {
+  background: #eef4fb;
+}
+
+.gradebook-student-suggestions button small {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.gradebook-student-suggestions p {
+  padding: 8px 12px;
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.gradebook-student-selected-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #eef4fb;
+  border: 1px solid #c9d8e8;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #1d3557;
+}
+
+.gradebook-student-selected-inline button {
+  background: transparent;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.gradebook-student-selected-inline button:hover {
+  background: #fecaca;
+}
